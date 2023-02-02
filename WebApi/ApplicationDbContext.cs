@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 
 namespace WebApi
 {
@@ -19,9 +20,16 @@ namespace WebApi
                 .HasMaxLength(150).IsRequired();
             modelBuilder.Entity<Actor>().Property(prop => prop.FechaNacimiento)
                 .HasColumnType("date");
+
+            modelBuilder.Entity<Cine>().Property(prop => prop.Nombre)
+                .HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Cine>().Property(prop => prop.Precio)
+                .HasPrecision(precision: 9, scale: 2);
+           
         }
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Actor> Actores { get; set; }
+        public DbSet<Cine> Cines { get; set; }
 
     }
 }

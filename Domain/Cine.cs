@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using NetTopologySuite.Geometries;
+
 
 namespace Domain
 {
-    internal class Cine
+    public class Cine
     {
+        public int Id { get; set; }
+        public string? Nombre { get; set; }
+        public decimal Precio { get; set; }
+        public Point? Ubicacion { get; set; }
     }
 }
