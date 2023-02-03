@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
 namespace WebApi.Migrations
 {
-    public partial class Cine : Migration
+    public partial class CineUbicacion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,24 +32,12 @@ namespace WebApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false)
+                    Precio = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
+                    Ubicacion = table.Column<Point>(type: "geography", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cines", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Generos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Generos", x => x.Id);
                 });
         }
 
@@ -59,9 +48,6 @@ namespace WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cines");
-
-            migrationBuilder.DropTable(
-                name: "Generos");
         }
     }
 }

@@ -13,8 +13,8 @@ using WebApi;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230202231046_Cines")]
-    partial class Cines
+    [Migration("20230203170126_CineOfertas")]
+    partial class CineOfertas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,6 +74,35 @@ namespace WebApi.Migrations
                     b.ToTable("Cines");
                 });
 
+            modelBuilder.Entity("Domain.CineOferta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CineId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaFin")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("date");
+
+                    b.Property<decimal>("PocentajeDescuento")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CineId")
+                        .IsUnique();
+
+                    b.ToTable("CineOfertas");
+                });
+
             modelBuilder.Entity("Domain.Genero", b =>
                 {
                     b.Property<int>("Id")
@@ -90,6 +119,51 @@ namespace WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Generos");
+                });
+
+            modelBuilder.Entity("Domain.Pelicula", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("EnCartelera")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FechaEstreno")
+                        .HasColumnType("date");
+
+                    b.Property<string>("PosterUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Peliculas");
+                });
+
+            modelBuilder.Entity("Domain.CineOferta", b =>
+                {
+                    b.HasOne("Domain.Cine", null)
+                        .WithOne("CineOferta")
+                        .HasForeignKey("Domain.CineOferta", "CineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Cine", b =>
+                {
+                    b.Navigation("CineOferta")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

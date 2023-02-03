@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using WebApi;
 
 #nullable disable
@@ -12,8 +13,8 @@ using WebApi;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230202225426_Cine")]
-    partial class Cine
+    [Migration("20230203161155_CineUbicacion")]
+    partial class CineUbicacion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +65,9 @@ namespace WebApi.Migrations
                     b.Property<decimal>("Precio")
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
+
+                    b.Property<Point>("Ubicacion")
+                        .HasColumnType("geography");
 
                     b.HasKey("Id");
 

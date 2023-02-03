@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 
 namespace WebApi
 {
@@ -12,24 +11,41 @@ namespace WebApi
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Genero>().HasKey(prop => prop.Id);
-            modelBuilder.Entity<Genero>().Property(prop => prop.Nombre)
+
+            modelBuilder.Entity<Genero>().HasKey(opcion => opcion.Id);
+            modelBuilder.Entity<Genero>().Property(opcion => opcion.Nombre)
                 .HasMaxLength(150).IsRequired();
 
-            modelBuilder.Entity<Actor>().Property(prop => prop.Nombre)
+            modelBuilder.Entity<Actor>().Property(opcion => opcion.Nombre)
                 .HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Actor>().Property(prop => prop.FechaNacimiento)
+            modelBuilder.Entity<Actor>().Property(opcion => opcion.FechaNacimiento)
                 .HasColumnType("date");
 
-            modelBuilder.Entity<Cine>().Property(prop => prop.Nombre)
+            modelBuilder.Entity<Cine>().Property(opcion => opcion.Nombre)
                 .HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Cine>().Property(prop => prop.Precio)
-                .HasPrecision(precision: 9, scale: 2);
-           
+            modelBuilder.Entity<Cine>().Property(opcion => opcion.Precio)
+                .HasPrecision(precision:9, scale:2);
+
+            modelBuilder.Entity<Pelicula>().Property(opcion => opcion.Titulo)
+                .HasMaxLength(250).IsRequired();
+            modelBuilder.Entity<Pelicula>().Property(opcion => opcion.FechaEstreno)
+                .HasColumnType("date");
+            modelBuilder.Entity<Pelicula>().Property(opcion => opcion.PosterUrl)
+                .HasMaxLength(500).IsUnicode(false);
+
+            modelBuilder.Entity<CineOferta>().Property(opcion => opcion.PocentajeDescuento)
+                .HasPrecision(precision:5, scale:2);
+            modelBuilder.Entity<CineOferta>().Property(opcion => opcion.FechaInicio)
+                .HasColumnType("date");
+            modelBuilder.Entity<CineOferta>().Property(opcion => opcion.FechaFin)
+                .HasColumnType("date");
+
         }
+
         public DbSet<Genero> Generos { get; set; }
         public DbSet<Actor> Actores { get; set; }
         public DbSet<Cine> Cines { get; set; }
-
+        public DbSet<Pelicula> Peliculas { get; set; }
+        public DbSet<CineOferta> CineOfertas { get; set; }
     }
 }

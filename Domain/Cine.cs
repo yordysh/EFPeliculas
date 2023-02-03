@@ -10,5 +10,6 @@ namespace Domain
         public string? Nombre { get; set; }
         public decimal Precio { get; set; }
         public Point? Ubicacion { get; set; }
+        public CineOferta CineOferta { get; set; }
     }
 }

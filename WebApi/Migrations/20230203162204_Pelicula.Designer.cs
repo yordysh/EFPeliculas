@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using WebApi;
@@ -12,9 +13,10 @@ using WebApi;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230203162204_Pelicula")]
+    partial class Pelicula
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,35 +74,6 @@ namespace WebApi.Migrations
                     b.ToTable("Cines");
                 });
 
-            modelBuilder.Entity("Domain.CineOferta", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CineId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaFin")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("FechaInicio")
-                        .HasColumnType("date");
-
-                    b.Property<decimal>("PocentajeDescuento")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CineId")
-                        .IsUnique();
-
-                    b.ToTable("CineOfertas");
-                });
-
             modelBuilder.Entity("Domain.Genero", b =>
                 {
                     b.Property<int>("Id")
@@ -147,21 +120,6 @@ namespace WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Peliculas");
-                });
-
-            modelBuilder.Entity("Domain.CineOferta", b =>
-                {
-                    b.HasOne("Domain.Cine", null)
-                        .WithOne("CineOferta")
-                        .HasForeignKey("Domain.CineOferta", "CineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Cine", b =>
-                {
-                    b.Navigation("CineOferta")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
