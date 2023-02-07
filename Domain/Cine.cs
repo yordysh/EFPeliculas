@@ -8,8 +8,8 @@ namespace Domain
     {
         public int Id { get; set; }
         public string? Nombre { get; set; }
-        public decimal Precio { get; set; }
         public Point? Ubicacion { get; set; }
         public CineOferta CineOferta { get; set; }
+        public HashSet<SalaDeCine> SalaDeCines { get;}
     }
 }

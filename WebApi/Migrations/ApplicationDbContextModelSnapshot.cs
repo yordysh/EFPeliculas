@@ -60,10 +60,6 @@ namespace WebApi.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<decimal>("Precio")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("decimal(9,2)");
-
                     b.Property<Point>("Ubicacion")
                         .HasColumnType("geography");
 
@@ -149,6 +145,86 @@ namespace WebApi.Migrations
                     b.ToTable("Peliculas");
                 });
 
+            modelBuilder.Entity("Domain.PeliculaActor", b =>
+                {
+                    b.Property<int>("PeliculaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Orden")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Personaje")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("PeliculaId", "ActorId");
+
+                    b.HasIndex("ActorId");
+
+                    b.ToTable("PeliculaActores");
+                });
+
+            modelBuilder.Entity("Domain.SalaDeCine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CineId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Precio")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("TipoSalaDeCine")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CineId");
+
+                    b.ToTable("SalaDeCines");
+                });
+
+            modelBuilder.Entity("GeneroPelicula", b =>
+                {
+                    b.Property<int>("GenerosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PeliculasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenerosId", "PeliculasId");
+
+                    b.HasIndex("PeliculasId");
+
+                    b.ToTable("GeneroPelicula");
+                });
+
+            modelBuilder.Entity("PeliculaSalaDeCine", b =>
+                {
+                    b.Property<int>("PeliculasId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SalaDeCinesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PeliculasId", "SalaDeCinesId");
+
+                    b.HasIndex("SalaDeCinesId");
+
+                    b.ToTable("PeliculaSalaDeCine");
+                });
+
             modelBuilder.Entity("Domain.CineOferta", b =>
                 {
                     b.HasOne("Domain.Cine", null)
@@ -158,10 +234,82 @@ namespace WebApi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.PeliculaActor", b =>
+                {
+                    b.HasOne("Domain.Actor", "Actor")
+                        .WithMany("PeliculaActores")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Pelicula", "Pelicula")
+                        .WithMany("PeliculaActores")
+                        .HasForeignKey("PeliculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Pelicula");
+                });
+
+            modelBuilder.Entity("Domain.SalaDeCine", b =>
+                {
+                    b.HasOne("Domain.Cine", "Cine")
+                        .WithMany("SalaDeCines")
+                        .HasForeignKey("CineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cine");
+                });
+
+            modelBuilder.Entity("GeneroPelicula", b =>
+                {
+                    b.HasOne("Domain.Genero", null)
+                        .WithMany()
+                        .HasForeignKey("GenerosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Pelicula", null)
+                        .WithMany()
+                        .HasForeignKey("PeliculasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PeliculaSalaDeCine", b =>
+                {
+                    b.HasOne("Domain.Pelicula", null)
+                        .WithMany()
+                        .HasForeignKey("PeliculasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.SalaDeCine", null)
+                        .WithMany()
+                        .HasForeignKey("SalaDeCinesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Actor", b =>
+                {
+                    b.Navigation("PeliculaActores");
+                });
+
             modelBuilder.Entity("Domain.Cine", b =>
                 {
                     b.Navigation("CineOferta")
                         .IsRequired();
+
+                    b.Navigation("SalaDeCines");
+                });
+
+            modelBuilder.Entity("Domain.Pelicula", b =>
+                {
+                    b.Navigation("PeliculaActores");
                 });
 #pragma warning restore 612, 618
         }

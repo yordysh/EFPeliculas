@@ -13,5 +13,8 @@ namespace Domain
         public bool EnCartelera { get; set; }
         public DateTime FechaEstreno { get; set; }
         public string PosterUrl { get; set; }
+        public HashSet<Genero> Generos { get; set; }
+        public HashSet<SalaDeCine> SalaDeCines { get; set; }
+        public HashSet<PeliculaActor> PeliculaActores { get; set; }
     }
 }
