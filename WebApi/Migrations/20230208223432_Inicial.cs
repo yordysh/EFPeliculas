@@ -61,7 +61,7 @@ namespace WebApi.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     EnCartelera = table.Column<bool>(type: "bit", nullable: false),
                     FechaEstreno = table.Column<DateTime>(type: "date", nullable: false),
-                    PosterUrl = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: false)
+                    PosterUrl = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,7 +141,7 @@ namespace WebApi.Migrations
                 {
                     PeliculaId = table.Column<int>(type: "int", nullable: false),
                     ActorId = table.Column<int>(type: "int", nullable: false),
-                    Personaje = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Personaje = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Orden = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

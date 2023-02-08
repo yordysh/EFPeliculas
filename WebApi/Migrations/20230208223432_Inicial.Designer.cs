@@ -13,7 +13,7 @@ using WebApi;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230208164659_Inicial")]
+    [Migration("20230208223432_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -132,7 +132,6 @@ namespace WebApi.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("PosterUrl")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .IsUnicode(false)
                         .HasColumnType("varchar(500)");
@@ -159,7 +158,6 @@ namespace WebApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Personaje")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -303,8 +301,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.Cine", b =>
                 {
-                    b.Navigation("CineOferta")
-                        .IsRequired();
+                    b.Navigation("CineOferta");
 
                     b.Navigation("SalaDeCines");
                 });

@@ -18,14 +18,14 @@ namespace WebApi
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new GeneroConfig());
-            modelBuilder.ApplyConfiguration(new ActorConfig());
-            modelBuilder.ApplyConfiguration(new CineConfig());
-            modelBuilder.ApplyConfiguration(new PeliculaConfig());
-            modelBuilder.ApplyConfiguration(new CineOfertaConfig());
-            modelBuilder.ApplyConfiguration(new SalaDeCineConfig());
-            modelBuilder.ApplyConfiguration(new PeliculaActorConfig());
-            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.ApplyConfiguration(new GeneroConfig());
+            //modelBuilder.ApplyConfiguration(new ActorConfig());
+            //modelBuilder.ApplyConfiguration(new CineConfig());
+            //modelBuilder.ApplyConfiguration(new PeliculaConfig());
+            //modelBuilder.ApplyConfiguration(new CineOfertaConfig());
+            //modelBuilder.ApplyConfiguration(new SalaDeCineConfig());
+            //modelBuilder.ApplyConfiguration(new PeliculaActorConfig());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 
         }
