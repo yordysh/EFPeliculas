@@ -1,5 +1,7 @@
 ﻿using Domain;
+using Domain.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace WebApi
 {
@@ -16,37 +18,15 @@ namespace WebApi
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Genero>().HasKey(opcion => opcion.Id);
-            modelBuilder.Entity<Genero>().Property(opcion => opcion.Nombre)
-                .HasMaxLength(150).IsRequired();
+            modelBuilder.ApplyConfiguration(new GeneroConfig());
+            modelBuilder.ApplyConfiguration(new ActorConfig());
+            modelBuilder.ApplyConfiguration(new CineConfig());
+            modelBuilder.ApplyConfiguration(new PeliculaConfig());
+            modelBuilder.ApplyConfiguration(new CineOfertaConfig());
+            modelBuilder.ApplyConfiguration(new SalaDeCineConfig());
+            modelBuilder.ApplyConfiguration(new PeliculaActorConfig());
+            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            modelBuilder.Entity<Actor>().Property(opcion => opcion.Nombre)
-                .HasMaxLength(150).IsRequired();
-
-            modelBuilder.Entity<Cine>().Property(opcion => opcion.Nombre)
-                .HasMaxLength(150).IsRequired();
-
-            modelBuilder.Entity<Pelicula>().Property(opcion => opcion.Titulo)
-                .HasMaxLength(250).IsRequired();
-            modelBuilder.Entity<Pelicula>().Property(opcion => opcion.PosterUrl)
-                .HasMaxLength(500).IsUnicode(false);
-
-            modelBuilder.Entity<CineOferta>().Property(opcion => opcion.PocentajeDescuento)
-                .HasPrecision(precision: 5, scale: 2);
-           
-
-            modelBuilder.Entity<SalaDeCine>().Property(opcion => opcion.Precio)
-                .HasPrecision(precision: 5, scale: 2);
-            modelBuilder.Entity<SalaDeCine>().Property(opcion => opcion.TipoSalaDeCine)
-                .HasDefaultValue(TipoSalaDeCine.DosDimensiones);
-
-            modelBuilder.Entity<PeliculaActor>().HasKey(opcion => new
-            {
-                opcion.PeliculaId,
-                opcion.ActorId
-            });
-            modelBuilder.Entity<PeliculaActor>().Property(opcion => opcion.Personaje)
-                .HasMaxLength(150);
 
         }
 
