@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Configuration
+namespace Entitys.Configuration
 {
     public class GeneroConfig : IEntityTypeConfiguration<Genero>
     {
