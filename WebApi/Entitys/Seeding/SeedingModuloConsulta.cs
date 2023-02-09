@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Geometries;
 using NetTopologySuite;
+using Entitys;
 
 namespace WebApi.Entitys.Seeding
 {

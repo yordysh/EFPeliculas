@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.Configuration;
+﻿using Entitys;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApi.Entitys.Seeding;

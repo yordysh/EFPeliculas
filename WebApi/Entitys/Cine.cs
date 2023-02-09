@@ -2,7 +2,7 @@
 using NetTopologySuite.Geometries;
 
 
-namespace Domain
+namespace Entitys   
 {
     public class Cine
     {
