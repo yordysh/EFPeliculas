@@ -932,24 +932,10 @@
           }
         }
       },
-      "Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite": "6.0.13"
-        },
-        "compile": {
-          "bin/placeholder/Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Domain.dll": {}
-        }
-      },
       "Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.13"
         },
@@ -2368,11 +2354,6 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Domain/1.0.0": {
-      "type": "project",
-      "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../Domain/Domain.csproj"
     },
     "Infrastructure/1.0.0": {
       "type": "project",

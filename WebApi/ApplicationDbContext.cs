@@ -2,6 +2,7 @@
 using Domain.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using WebApi.Entitys.Seeding;
 
 namespace WebApi
 {
@@ -26,6 +27,7 @@ namespace WebApi
             //modelBuilder.ApplyConfiguration(new SalaDeCineConfig());
             //modelBuilder.ApplyConfiguration(new PeliculaActorConfig());
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            SeedingModuloConsulta.Seed(modelBuilder);
 
 
         }
