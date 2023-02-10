@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebApi;
 
@@ -10,8 +11,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaulConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer(connectionString, 
-    sqlServer => sqlServer.UseNetTopologySuite()));
+builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
+{
+    opciones.UseSqlServer(connectionString,sqlServer => sqlServer.UseNetTopologySuite());
+    opciones.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+}
+    
+    );
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
